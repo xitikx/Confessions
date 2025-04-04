@@ -1,0 +1,75 @@
+.confession-card {
+    background-color: #C1E1C1; /* Mint */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease-in;
+  }
+  
+  .confession-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(193, 225, 193, 0.6); /* Glow effect */
+  }
+  
+  .confession-text {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #4B5563;
+  }
+  
+  .confession-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .category {
+    background-color: #FFD1DC;
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: #6B7280;
+  }
+  
+  .sentiment {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  
+  .sentiment.positive { background-color: #C1E1C1; }
+  .sentiment.negative { background-color: #FFD1DC; }
+  .sentiment.neutral { background-color: #E6E6FA; }
+  .sentiment.mixed { background-color: #FFF8E7; }
+  
+  .reactions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .reactions button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .reactions button:hover {
+    transform: scale(1.2);
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @media (max-width: 768px) {
+    .confession-card {
+      padding: 15px;
+    }
+    .confession-text {
+      font-size: 1rem;
+    }
+  }

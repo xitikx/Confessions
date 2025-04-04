@@ -1,0 +1,67 @@
+.confession-form {
+    width: 100%;
+    max-width: 600px;
+    background-color: #FFD1DC; /* Soft pink */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    animation: fadeIn 0.5s ease-in;
+  }
+  
+  .confession-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #FFF8E7;
+    font-size: 1rem;
+    resize: none;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .confession-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 209, 220, 0.8); /* Glow effect */
+  }
+  
+  .confession-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    background-color: #C1E1C1; /* Mint */
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .confession-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #E6E6FA; /* Lavender */
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6B7280;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .confession-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(230, 230, 250, 0.6);
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @media (max-width: 768px) {
+    .confession-form {
+      padding: 15px;
+    }
+  }

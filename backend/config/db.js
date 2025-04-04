@@ -3,8 +3,12 @@ const mongoose = require("mongoose");
 const connectDB = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI, {
-            ssl: true,   // ✅ Use SSL for secure connection
-            tlsAllowInvalidCertificates: true, // ✅ Ignore certificate errors
+            ssl: true, // Use SSL for secure connection
+            tls: true, // Explicitly enable TLS
+            // Remove tlsAllowInvalidCertificates unless absolutely needed
+            // tlsAllowInvalidCertificates: true, // Only use for self-signed certs
+            retryWrites: true, // Retry writes on failure
+            w: "majority", // Write concern
         });
 
         console.log("✅ MongoDB Connected Successfully");
