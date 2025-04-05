@@ -59,6 +59,26 @@
   .reactions button:hover {
     transform: scale(1.2);
   }
+
+  .confession-card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .confession-card {
+    background-color: #C1E1C1;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease-in;
+    cursor: pointer; /* Indicate clickable */
+  }
+  
+  .confession-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(193, 225, 193, 0.6);
+  }
   
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }

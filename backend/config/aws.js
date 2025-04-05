@@ -7,4 +7,7 @@ AWS.config.update({
   region: process.env.AWS_REGION || "us-east-1",
 });
 
-module.exports = AWS;
+const s3 = new AWS.S3();
+const polly = new AWS.Polly();
+
+module.exports = { AWS, s3, polly };

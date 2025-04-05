@@ -38,4 +38,27 @@ router.post("/:id/react", async (req, res) => {
     }
 });
 
+router.post("/:id/comments", async (req, res) => {
+    try {
+      const { text } = req.body;
+      if (!text) {
+        return res.status(400).json({ success: false, message: "Comment text is required" });
+      }
+  
+      const confession = await Confession.findById(req.params.id);
+      if (!confession) {
+        return res.status(404).json({ success: false, message: "Confession not found" });
+      }
+  
+      const newComment = { text };
+      confession.comments.push(newComment);
+      await confession.save();
+  
+      res.status(201).json({ success: true, message: "Comment added", comment: newComment });
+    } catch (error) {
+      console.error("❌ Comment Error:", error);
+      res.status(500).json({ success: false, message: "Server error", error: error.message });
+    }
+  });
+
 module.exports = router;
