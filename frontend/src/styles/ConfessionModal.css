@@ -1,0 +1,211 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeInOverlay 0.3s ease-in;
+  }
+  
+  .modal-content {
+    background-color: #FFF8E7; /* Pastel yellow */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+    height: 600px; /* Fixed height */
+    display: flex;
+    flex-direction: column;
+    animation: slideInModal 0.3s ease-out;
+    position: relative; /* Ensure close button positions correctly */
+  }
+  
+  .modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #6B7280;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 1; /* Ensure it’s above other content */
+  }
+  
+  .modal-close-btn:hover {
+    color: #4B5563;
+    transform: scale(1.2); /* Slight grow effect */
+  }
+  
+  .modal-confession {
+    background-color: #C1E1C1; /* Mint */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .confession-text {
+    font-size: 1.2rem;
+    color: #4B5563;
+    margin-bottom: 10px;
+  }
+  
+  .confession-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+  }
+  
+  .category {
+    background-color: #FFD1DC; /* Pastel pink */
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: #6B7280;
+  }
+  
+  .sentiment {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  
+  .sentiment.positive { background-color: #C1E1C1; }
+  .sentiment.negative { background-color: #FFD1DC; }
+  .sentiment.neutral { background-color: #E6E6FA; }
+  .sentiment.mixed { background-color: #FFF8E7; }
+  
+  .reactions {
+    display: flex;
+    gap: 15px;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  
+  .modal-comments {
+    padding: 15px;
+    background-color: #E6E6FA; /* Pastel lavender */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    max-height: 200px; /* Fixed height for comments */
+    overflow-y: auto; /* Scrollable */
+    flex-grow: 1; /* Takes available space */
+  }
+  
+  .modal-comments h3 {
+    font-size: 1.3rem;
+    color: #6B7280;
+    margin-bottom: 10px;
+  }
+  
+  .comment {
+    padding: 10px 0;
+    border-bottom: 1px solid #FFD1DC;
+  }
+  
+  .comment p {
+    font-size: 1rem;
+    color: #4B5563;
+  }
+  
+  .comment-date {
+    font-size: 0.8rem;
+    color: #9CA3AF;
+  }
+  
+  .modal-comment-form {
+    padding: 15px;
+    background-color: #FFD1DC; /* Pastel pink */
+    border-radius: 10px;
+  }
+  
+  .modal-comment-form textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #FFF8E7;
+    font-size: 1rem;
+    resize: none;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .modal-comment-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 209, 220, 0.8);
+  }
+  
+  .modal-comment-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #C1E1C1; /* Mint */
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6B7280;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .modal-comment-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(193, 225, 193, 0.6);
+  }
+  
+  .modal-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .modal-navigation button {
+    padding: 10px 20px;
+    background-color: #E6E6FA; /* Pastel lavender */
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #6B7280;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .modal-navigation button:hover:not(.disabled) {
+    background-color: #FFD1DC;
+    transform: translateY(-2px);
+  }
+  
+  .modal-navigation button.disabled {
+    background-color: #E5E7EB;
+    color: #9CA3AF;
+    cursor: not-allowed;
+  }
+  
+  @keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideInModal {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @media (max-width: 768px) {
+    .modal-content {
+      width: 95%;
+      padding: 15px;
+      height: 80vh; /* Adjust for smaller screens */
+    }
+  
+    .modal-comments {
+      max-height: 150px; /* Smaller height on mobile */
+    }
+  }
