@@ -3,7 +3,14 @@ import axios from 'axios';
 import ConfessionCard from './ConfessionCard';
 import ConfessionForm from './ConfessionForm';
 import ConfessionModal from './ConfessionModal';
+import io from 'socket.io-client'; // Added for Socket.io
 import '../styles/ConfessionList.css';
+
+// Initialize Socket.io connection
+const socket = io(process.env.REACT_APP_API_URL, {
+  reconnection: true,
+  reconnectionAttempts: 5,
+});
 
 function ConfessionList() {
   const [confessions, setConfessions] = useState([]);
@@ -19,10 +26,20 @@ function ConfessionList() {
       }
     };
     fetchConfessions();
+
+    // Listen for new confessions
+    socket.on("newConfession", (newConfession) => {
+      setConfessions((prev) => [newConfession, ...prev]);
+    });
+
+    // Cleanup listener
+    return () => {
+      socket.off("newConfession");
+    };
   }, []);
 
   const addConfession = (newConfession) => {
-    setConfessions((prev) => [newConfession, ...prev]); // Add new confession to the top
+    setConfessions((prev) => [newConfession, ...prev]);
   };
 
   const openModal = (index) => setSelectedConfessionIndex(index);
@@ -43,6 +60,7 @@ function ConfessionList() {
             key={confession._id}
             confession={confession}
             onClick={() => openModal(index)}
+            socket={socket} // Pass socket to ConfessionCard
           />
         ))}
       </div>

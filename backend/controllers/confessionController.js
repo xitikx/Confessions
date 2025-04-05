@@ -21,20 +21,23 @@ exports.createConfession = async (req, res) => {
       return res.status(400).json({ error: "Text is required" });
     }
 
-    // Analyze sentiment using the utility function
     console.log("🛠️ Sending text to AWS Comprehend:", text);
     const sentiment = await analyzeSentiment(text);
     console.log("🔍 Extracted Sentiment:", sentiment);
 
-    // Save confession with sentiment
     const newConfession = new Confession({
       text,
       category,
       sentiment,
+      reactions: { heart: 0, hug: 0, pray: 0 }, // Initialize reactions
+      comments: [], // Initialize comments
     });
 
     await newConfession.save();
     console.log("✅ Confession saved successfully:", newConfession);
+
+    // Emit Socket.io event for new confession
+    req.io.emit("newConfession", newConfession);
 
     res.status(201).json(newConfession);
   } catch (error) {

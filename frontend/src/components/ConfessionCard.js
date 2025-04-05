@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/ConfessionCard.css';
 
-function ConfessionCard({ confession: initialConfession, onClick }) {
+function ConfessionCard({ confession: initialConfession, onClick, socket }) {
   const [confession, setConfession] = useState(initialConfession);
+
+  useEffect(() => {
+    // Sync initial confession
+    setConfession(initialConfession);
+
+    // Listen for new reactions
+    socket.on("newReaction", (data) => {
+      if (data.confessionId === confession._id) {
+        setConfession((prev) => ({
+          ...prev,
+          reactions: data.reactions,
+        }));
+      }
+    });
+
+    // Cleanup listener
+    return () => {
+      socket.off("newReaction");
+    };
+  }, [initialConfession, socket]);
 
   const handleReaction = async (reactionType) => {
     try {

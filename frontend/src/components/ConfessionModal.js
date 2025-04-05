@@ -1,9 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import io from 'socket.io-client'; // Added for Socket.io
 import '../styles/ConfessionModal.css';
+
+// Initialize Socket.io connection outside the component to avoid reconnects
+const socket = io(process.env.REACT_APP_API_URL, {
+  reconnection: true,
+  reconnectionAttempts: 5,
+});
 
 function ConfessionModal({ confession, onClose, onPrevious, onNext, hasPrevious, hasNext }) {
   const [commentText, setCommentText] = useState('');
+  const [comments, setComments] = useState(confession.comments); // Local state for comments
+
+  // Handle real-time comment updates
+  useEffect(() => {
+    // Reset comments when confession changes (e.g., Previous/Next)
+    setComments(confession.comments);
+
+    // Listen for new comments
+    socket.on("newComment", (data) => {
+      if (data.confessionId === confession._id) {
+        setComments((prevComments) => [...prevComments, data.comment]);
+      }
+    });
+
+    // Cleanup listener on unmount or confession change
+    return () => {
+      socket.off("newComment");
+    };
+  }, [confession._id, confession.comments]);
 
   const handleAddComment = async (e) => {
     e.preventDefault();
@@ -16,7 +42,7 @@ function ConfessionModal({ confession, onClose, onPrevious, onNext, hasPrevious,
         ...res.data.comment,
         createdAt: res.data.comment.createdAt || new Date().toISOString(),
       };
-      confession.comments.push(newComment);
+      setComments((prevComments) => [...prevComments, newComment]); // Update local state
       setCommentText('');
     } catch (error) {
       console.error('Error adding comment:', error);
@@ -43,10 +69,10 @@ function ConfessionModal({ confession, onClose, onPrevious, onNext, hasPrevious,
         </div>
         <div className="modal-comments">
           <h3>Comments</h3>
-          {confession.comments.length === 0 ? (
+          {comments.length === 0 ? (
             <p>No comments yet.</p>
           ) : (
-            confession.comments.map((comment, index) => (
+            comments.map((comment, index) => (
               <div key={index} className="comment">
                 <p>{comment.text}</p>
                 <span className="comment-date">
