@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import io from 'socket.io-client'; // Added for Socket.io
+import io from 'socket.io-client';
 import '../styles/ConfessionModal.css';
 
-// Initialize Socket.io connection outside the component to avoid reconnects
 const socket = io(process.env.REACT_APP_API_URL, {
   reconnection: true,
   reconnectionAttempts: 5,
 });
 
+// ... (same imports and socket setup)
+
 function ConfessionModal({ confession, onClose, onPrevious, onNext, hasPrevious, hasNext }) {
   const [commentText, setCommentText] = useState('');
-  const [comments, setComments] = useState(confession.comments); // Local state for comments
+  const [comments, setComments] = useState(confession.comments);
 
-  // Handle real-time comment updates
   useEffect(() => {
-    // Reset comments when confession changes (e.g., Previous/Next)
     setComments(confession.comments);
 
-    // Listen for new comments
     socket.on("newComment", (data) => {
       if (data.confessionId === confession._id) {
-        setComments((prevComments) => [...prevComments, data.comment]);
+        setComments((prevComments) => {
+          if (prevComments.some((c) => c._id === data.comment._id)) {
+            return prevComments;
+          }
+          return [...prevComments, data.comment];
+        });
       }
     });
 
-    // Cleanup listener on unmount or confession change
     return () => {
       socket.off("newComment");
     };
@@ -34,21 +36,17 @@ function ConfessionModal({ confession, onClose, onPrevious, onNext, hasPrevious,
   const handleAddComment = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_API_URL}/api/confessions/${confession._id}/comments`,
         { text: commentText }
       );
-      const newComment = {
-        ...res.data.comment,
-        createdAt: res.data.comment.createdAt || new Date().toISOString(),
-      };
-      setComments((prevComments) => [...prevComments, newComment]); // Update local state
       setCommentText('');
     } catch (error) {
       console.error('Error adding comment:', error);
     }
   };
 
+  // ... (same return JSX, but update key to use _id)
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -72,8 +70,8 @@ function ConfessionModal({ confession, onClose, onPrevious, onNext, hasPrevious,
           {comments.length === 0 ? (
             <p>No comments yet.</p>
           ) : (
-            comments.map((comment, index) => (
-              <div key={index} className="comment">
+            comments.map((comment) => (
+              <div key={comment._id} className="comment">
                 <p>{comment.text}</p>
                 <span className="comment-date">
                   {new Date(comment.createdAt).toLocaleString()}
