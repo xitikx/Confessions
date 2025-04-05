@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/ConfessionForm.css';
 
-function ConfessionForm({ onConfessionAdded }) {
+function ConfessionForm() { // Removed onConfessionAdded prop
   const [text, setText] = useState('');
   const [category, setCategory] = useState('general');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/confessions`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/confessions`, {
         text,
         category,
       });
       setText('');
       setCategory('general');
-      onConfessionAdded(response.data); // Pass the new confession to the parent
+      // Removed onConfessionAdded(response.data) - Socket.io will handle it
     } catch (error) {
       console.error('Error posting confession:', error);
     }

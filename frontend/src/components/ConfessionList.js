@@ -3,10 +3,9 @@ import axios from 'axios';
 import ConfessionCard from './ConfessionCard';
 import ConfessionForm from './ConfessionForm';
 import ConfessionModal from './ConfessionModal';
-import io from 'socket.io-client'; // Added for Socket.io
+import io from 'socket.io-client';
 import '../styles/ConfessionList.css';
 
-// Initialize Socket.io connection
 const socket = io(process.env.REACT_APP_API_URL, {
   reconnection: true,
   reconnectionAttempts: 5,
@@ -27,20 +26,20 @@ function ConfessionList() {
     };
     fetchConfessions();
 
-    // Listen for new confessions
     socket.on("newConfession", (newConfession) => {
-      setConfessions((prev) => [newConfession, ...prev]);
+      setConfessions((prev) => {
+        // Prevent duplicates by _id
+        if (prev.some((conf) => conf._id === newConfession._id)) {
+          return prev;
+        }
+        return [newConfession, ...prev];
+      });
     });
 
-    // Cleanup listener
     return () => {
       socket.off("newConfession");
     };
   }, []);
-
-  const addConfession = (newConfession) => {
-    setConfessions((prev) => [newConfession, ...prev]);
-  };
 
   const openModal = (index) => setSelectedConfessionIndex(index);
   const closeModal = () => setSelectedConfessionIndex(null);
@@ -53,14 +52,14 @@ function ConfessionList() {
 
   return (
     <>
-      <ConfessionForm onConfessionAdded={addConfession} />
+      <ConfessionForm /> {/* No prop needed */}
       <div className="confession-list">
         {confessions.map((confession, index) => (
           <ConfessionCard
             key={confession._id}
             confession={confession}
             onClick={() => openModal(index)}
-            socket={socket} // Pass socket to ConfessionCard
+            socket={socket}
           />
         ))}
       </div>
