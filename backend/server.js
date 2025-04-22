@@ -12,12 +12,18 @@ const app = express();
 const server = http.createServer(app); // Create HTTP server for Socket.io
 const io = new Server(server, {
   cors: {
-    origin: "*", // Allow frontend origin
+    origin: ["http://localhost:3000", "https://confess-your-heart.netlify.app"],
     methods: ["GET", "POST"],
   },
-}); // Initialize Socket.io
+});
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://confess-your-heart.netlify.app"],
+    credentials: true,
+  })
+);
+
 app.use(express.json()); // Parse JSON
 
 // Import Routes
