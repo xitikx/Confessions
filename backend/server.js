@@ -12,7 +12,7 @@ const app = express();
 const server = http.createServer(app); // Create HTTP server for Socket.io
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // Allow frontend origin
+    origin: "*", // Allow frontend origin
     methods: ["GET", "POST"],
   },
 }); // Initialize Socket.io
@@ -24,10 +24,14 @@ app.use(express.json()); // Parse JSON
 const confessionRoutes = require("./routes/confessionRoutes");
 
 // Pass io to routes
-app.use("/api/confessions", (req, res, next) => {
-  req.io = io; // Attach io to req object
-  next();
-}, confessionRoutes);
+app.use(
+  "/api/confessions",
+  (req, res, next) => {
+    req.io = io; // Attach io to req object
+    next();
+  },
+  confessionRoutes
+);
 
 app.get("/", (req, res) => {
   res.send("Secret Confession Wall Backend is running...");
