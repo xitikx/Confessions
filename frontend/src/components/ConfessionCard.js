@@ -23,7 +23,7 @@ function ConfessionCard({ confession: initialConfession, onClick, socket }) {
     return () => {
       socket.off("newReaction");
     };
-  }, [initialConfession, socket]);
+  }, [initialConfession, socket, confession._id]);
 
   const handleReaction = async (reactionType) => {
     try {
