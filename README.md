@@ -1,18 +1,20 @@
 # Confessions
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit-blue?style=for-the-badge)](https://confess-your-heart.netlify.app/)
 
-## Overview
-A real-time, anonymous confession platform where users can share their thoughts, react with emojis, and comment supportively. Built with a modern full-stack architecture, featuring a responsive frontend, a robust backend, and real-time updates powered by Socket.io.
+## 💬 Overview  
+Confessions is a real-time, anonymous expression platform where users can share their thoughts, react with emojis, and comment supportively. Built using a modern full-stack architecture, it features a responsive frontend, a robust backend, and real-time updates powered by Socket.io.
 
-## Features
+🚀 **Now live and deployed** at: [confess-your-heart.netlify.app](https://confess-your-heart.netlify.app/)
 
-- **Anonymous Confessions**: Post confessions in categories like General, Mental Health, or Love.
-- **Real-Time Updates**: New confessions, reactions (❤️, 🤗, 🙏), and comments appear instantly for all users without refreshing.
-- **Responsive UI**: Grid-based layout with a pastel aesthetic, hover animations, and a fixed-size modal for details.
-- **Interactive Elements**: Add supportive comments, navigate confessions with Previous/Next buttons, and react with emojis.
-- **Sentiment Analysis**: Automatically analyzes confession sentiment using AWS Comprehend (backend).
+## ✨ Features
 
-## Tech Stack
+- 🔐 **Anonymous Confessions**: Post confessions in categories like General, Mental Health, or Love.
+- ⚡ **Real-Time Updates**: New confessions, reactions (❤️, 🤗, 🙏), and comments appear instantly for all users without refreshing.
+- 🖼️ **Responsive UI**: Grid-based layout with a pastel aesthetic, hover animations, and a fixed-size modal for details.
+- 💬 **Interactive Elements**: Add supportive comments, navigate confessions with Previous/Next buttons, and react with emojis.
+- 🧠 **Sentiment Analysis**: Automatically analyzes confession sentiment using AWS Comprehend (backend).
+
+## 🛠️ Tech Stack
 
 ### Frontend
 - **React**: Component-based UI with hooks for state management.
@@ -32,7 +34,5 @@ A real-time, anonymous confession platform where users can share their thoughts,
 - **NPM**: Package management.
 - **dotenv**: Environment variable configuration.
 
-## 🌐 Live Demo
-🎉 *Try it out here:* 👉 [Confessions.netlify.app](https://confess-your-heart.netlify.app/) 🚀 
-
-
+## 🌐 Live Demo  
+🎉 *Try it out here:* 👉 [confess-your-heart.netlify.app](https://confess-your-heart.netlify.app/) 🚀
