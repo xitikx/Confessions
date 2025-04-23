@@ -32,3 +32,7 @@ A real-time, anonymous confession platform where users can share their thoughts,
 - **NPM**: Package management.
 - **dotenv**: Environment variable configuration.
 
+## 🌐 Live Demo
+🎉 *Try it out here:* 👉 [Confessions.netlify.app](https://confess-your-heart.netlify.app/) 🚀 
+
+
