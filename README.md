@@ -1,5 +1,7 @@
-# Confessions App
+# Confessions
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit-blue?style=for-the-badge)]([https://kidwise.netlify.app/](https://confess-your-heart.netlify.app/))
 
+## Overview
 A real-time, anonymous confession platform where users can share their thoughts, react with emojis, and comment supportively. Built with a modern full-stack architecture, featuring a responsive frontend, a robust backend, and real-time updates powered by Socket.io.
 
 ## Features
